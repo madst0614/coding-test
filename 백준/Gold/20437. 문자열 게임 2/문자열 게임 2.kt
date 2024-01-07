@@ -1,4 +1,6 @@
 import java.io.*
+import kotlin.math.max
+import kotlin.math.min
 
 
 fun main(){
@@ -11,31 +13,29 @@ fun main(){
         val str = br.readLine()
         val K = br.readLine().toInt()
 
-        val list = Array<ArrayList<Int>>(26){ArrayList<Int>()}
+        val list = Array(26){ArrayList<Int>()}
 
-        for(i in str.indices){
-            list[str[i]-'a'].add(i)
+        for((i,c) in str.withIndex()){
+            list[c-'a'].add(i)
         }
 
         var s = Integer.MAX_VALUE
         var l = -1
 
-        for(i in str.indices){
-            val c = str[i]-'a'
-
-            if(list[c].count() >= K){
+        for(i in 0 until 26){
+            if(list[i].count() >= K){
                 var start = 0
 
-                for(end in list[c].indices){
+                for(end in list[i].indices){
                     if(end-start+1 > K){
                         start++
                     }
 
                     if(end-start+1==K){
-                        val length = list[c][end]-list[c][start]+1
+                        val length = list[i][end]-list[i][start]+1
 
-                        s = Math.min(s, length)
-                        l = Math.max(l, length)
+                        s = min(s, length)
+                        l = max(l, length)
                     }
 
                 }
