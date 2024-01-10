@@ -18,15 +18,12 @@ def dijkstra(start):
     d[start] = 1
 
     while hq:
-        dis, now = heapq.heappop(hq)
+        total_cost, now = heapq.heappop(hq)
 
-        if d[now] < dis:
-            continue
-
-        for n, c in graph[now]:
-            if dis + c < d[n]:
-                d[n] = dis + c
-                heapq.heappush(hq, (dis + c, n))
+        for target, cost in graph[now]:
+            if d[target] > total_cost + cost:
+                d[target] = total_cost + cost
+                heapq.heappush(hq, (d[target], target))
 
 
 dijkstra(0)
